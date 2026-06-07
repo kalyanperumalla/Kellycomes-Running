@@ -13,7 +13,18 @@ body{
     font-family:Arial,sans-serif;
     overflow:hidden;
 }
+#restartBtn{
+    margin-top:15px;
+    padding:12px 24px;
 
+    border:none;
+    border-radius:8px;
+
+    font-size:18px;
+    font-weight:bold;
+
+    cursor:pointer;
+}
 #game{
     width:min(900px,100vw);
     height:350px;
