@@ -6,6 +6,12 @@ const highScoreEl = document.getElementById("highScore");
 
 const startScreen = document.getElementById("startScreen");
 const gameOverScreen = document.getElementById("gameOver");
+const restartBtn =
+document.getElementById("restartBtn");
+highScoreEl.textContent = highScore;
+restartBtn.addEventListener("click", () => {
+    location.reload();
+});
 
 const clouds = document.getElementById("clouds");
 const mountains = document.getElementById("mountains");
@@ -46,9 +52,7 @@ document.addEventListener("keydown",(e)=>{
         jump();
     }
 
-    if(gameOver && e.key.toLowerCase()==="r"){
-        location.reload();
-    }
+   
 });
 
 function handleTap(){
