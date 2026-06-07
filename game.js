@@ -48,9 +48,18 @@ document
         jump();
     }
 
-    if(gameOver && e.key.toLowerCase()==="Space"){
-        location.reload();
-    }
+const restartBtn = document.getElementById("restartBtn");
+
+restartBtn.addEventListener("click", () => {
+    location.reload();
+});
+    restartBtn.addEventListener("click", restartGame);
+restartBtn.addEventListener("touchstart", restartGame);
+
+function restartGame(e){
+    e.preventDefault();
+    location.reload();
+}
 });
 
 function handleTap(){
