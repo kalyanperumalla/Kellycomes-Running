@@ -22,7 +22,7 @@ let gameOver = false;
 let score = 0;
 let speed = 6;
 
-let playerY = 60;
+let playerY = 80;
 let velocity = 0;
 
 const gravity = 0.7;
