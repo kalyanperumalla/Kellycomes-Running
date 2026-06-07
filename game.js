@@ -41,7 +41,9 @@ document.addEventListener("keydown",(e)=>{
         startGame();
         return;
     }
-
+document
+.getElementById("jumpBtn")
+.addEventListener("click", handleTap);
     if(e.code==="Space" && !gameOver){
         jump();
     }
