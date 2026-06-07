@@ -34,33 +34,28 @@ parseInt(localStorage.getItem("runnerHighScore")) || 0;
 highScoreEl.textContent = highScore;
 
 /* ---------- Controls ---------- */
+document.addEventListener("keydown", (e) => {
 
-document.addEventListener("keydown",(e)=>{
-
-    if(!started && e.code==="Space"){
+    if (!started && e.code === "Space") {
         startGame();
         return;
     }
-document
-.getElementById("jumpBtn")
-.addEventListener("click", handleTap);
-    if(e.code==="Space" && !gameOver){
+
+    if (!gameOver && e.code === "Space") {
         jump();
     }
-
-const restartBtn = document.getElementById("restartBtn");
-
-restartBtn.addEventListener("click", () => {
-    location.reload();
 });
-    restartBtn.addEventListener("click", restartGame);
+
+document.addEventListener("touchstart", handleTap);
+document.addEventListener("click", handleTap);
+
+restartBtn.addEventListener("click", restartGame);
 restartBtn.addEventListener("touchstart", restartGame);
 
 function restartGame(e){
     e.preventDefault();
     location.reload();
 }
-});
 
 function handleTap(){
 
@@ -74,8 +69,6 @@ function handleTap(){
     }
 }
 
-document.addEventListener("touchstart",handleTap);
-document.addEventListener("click",handleTap);
 
 /* ---------- Game ---------- */
 
