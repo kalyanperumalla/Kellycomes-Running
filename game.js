@@ -8,7 +8,11 @@ const startScreen = document.getElementById("startScreen");
 const gameOverScreen = document.getElementById("gameOver");
 const restartBtn =
 document.getElementById("restartBtn");
+let highScore =
+parseInt(localStorage.getItem("runnerHighScore")) || 0;
+
 highScoreEl.textContent = highScore;
+
 restartBtn.addEventListener("click", () => {
     location.reload();
 });
