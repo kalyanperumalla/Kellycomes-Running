@@ -48,7 +48,7 @@ document
         jump();
     }
 
-    if(gameOver && e.key.toLowerCase()==="r"){
+    if(gameOver && e.key.toLowerCase()==="Space"){
         location.reload();
     }
 });
