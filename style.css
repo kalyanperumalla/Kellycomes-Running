@@ -5,20 +5,24 @@
 }
 
 body{
-    background:#87ceeb;
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
+    min-height:100vh;
+    background:#87ceeb;
     font-family:Arial,sans-serif;
+    overflow:hidden;
 }
 
 #game{
-    width:900px;
+    width:min(900px,100vw);
     height:350px;
+
     position:relative;
     overflow:hidden;
+
     background:linear-gradient(#87ceeb,#dff6ff);
+
     border-radius:15px;
     box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
@@ -28,6 +32,7 @@ body{
     top:30px;
     width:200%;
     height:60px;
+
     background:
     radial-gradient(circle,#fff 30%,transparent 35%)
     0 0/120px 60px repeat-x;
@@ -61,14 +66,14 @@ body{
 
 #player{
     width:80px;
-    height:120px;
+    height:80px;
 
     position:absolute;
-    left:80px;
+    left:60px;
     bottom:60px;
 
     background-image:url("assets/runner.png");
-    background-size:100% 100%;
+    background-size:contain;
     background-repeat:no-repeat;
     background-position:center;
 }
@@ -78,7 +83,7 @@ body{
     bottom:60px;
     width:35px;
     background:#e74c3c;
-    border-radius:6px;
+    border-radius:5px;
 }
 
 .coin{
@@ -92,7 +97,7 @@ body{
 
 #hud{
     position:absolute;
-    top:10px;
+    top:15px;
     right:20px;
 
     display:flex;
@@ -100,6 +105,8 @@ body{
 
     font-size:20px;
     font-weight:bold;
+
+    z-index:5;
 }
 
 #startScreen,
@@ -114,7 +121,7 @@ body{
 
     background:rgba(255,255,255,.85);
 
-    z-index:100;
+    z-index:10;
 }
 
 #gameOver{
@@ -125,8 +132,9 @@ body{
     position:absolute;
     width:10px;
     height:10px;
-    border-radius:50%;
+
     background:#999;
+    border-radius:50%;
 
     animation:dust .5s forwards;
 }
@@ -134,9 +142,7 @@ body{
 @keyframes dust{
     to{
         opacity:0;
-        transform:
-        translateY(-20px)
-        scale(2);
+        transform:translateY(-20px) scale(2);
     }
 }
 
@@ -145,11 +151,29 @@ body{
 }
 
 @keyframes shake{
-
     0%{transform:translateX(0)}
     25%{transform:translateX(-8px)}
     50%{transform:translateX(8px)}
     75%{transform:translateX(-8px)}
     100%{transform:translateX(0)}
+}
 
+#jumpBtn{
+    position:absolute;
+    right:20px;
+    bottom:20px;
+
+    width:80px;
+    height:80px;
+
+    border:none;
+    border-radius:50%;
+
+    font-size:18px;
+    font-weight:bold;
+
+    background:white;
+    z-index:20;
+
+    box-shadow:0 4px 10px rgba(0,0,0,.2);
 }

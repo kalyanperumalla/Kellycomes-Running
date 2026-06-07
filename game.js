@@ -4,17 +4,11 @@ const player = document.getElementById("player");
 const scoreEl = document.getElementById("score");
 const highScoreEl = document.getElementById("highScore");
 
-const startScreen =
-document.getElementById("startScreen");
+const startScreen = document.getElementById("startScreen");
+const gameOverScreen = document.getElementById("gameOver");
 
-const gameOverScreen =
-document.getElementById("gameOver");
-
-const clouds =
-document.getElementById("clouds");
-
-const mountains =
-document.getElementById("mountains");
+const clouds = document.getElementById("clouds");
+const mountains = document.getElementById("mountains");
 
 let started = false;
 let gameOver = false;
@@ -22,7 +16,7 @@ let gameOver = false;
 let score = 0;
 let speed = 6;
 
-let playerY = 80;
+let playerY = 60;
 let velocity = 0;
 
 const gravity = 0.7;
@@ -35,13 +29,13 @@ let cloudX = 0;
 let mountainX = 0;
 
 let highScore =
-parseInt(
-localStorage.getItem("runnerHighScore")
-) || 0;
+parseInt(localStorage.getItem("runnerHighScore")) || 0;
 
 highScoreEl.textContent = highScore;
 
-document.addEventListener("keydown", e=>{
+/* ---------- Controls ---------- */
+
+document.addEventListener("keydown",(e)=>{
 
     if(!started && e.code==="Space"){
         startGame();
@@ -52,82 +46,85 @@ document.addEventListener("keydown", e=>{
         jump();
     }
 
-    if(
-        gameOver &&
-        e.key.toLowerCase()==="r"
-    ){
+    if(gameOver && e.key.toLowerCase()==="r"){
         location.reload();
     }
-
 });
+
+function handleTap(){
+
+    if(!started){
+        startGame();
+        return;
+    }
+
+    if(!gameOver){
+        jump();
+    }
+}
+
+document.addEventListener("touchstart",handleTap);
+document.addEventListener("click",handleTap);
+
+/* ---------- Game ---------- */
 
 function startGame(){
 
-    started=true;
+    started = true;
 
-    startScreen.style.display="none";
+    startScreen.style.display = "none";
 
     spawnObstacle();
     spawnCoin();
 
     requestAnimationFrame(update);
-
 }
 
 function jump(){
 
-    if(playerY<=60.5){
+    if(playerY <= 60.5){
 
-        velocity=jumpPower;
+        velocity = jumpPower;
 
-        createDust(
-            90,
-            260
-        );
+        createDust(100,270);
     }
 }
 
 function createDust(x,y){
 
-    const dust =
-    document.createElement("div");
+    const dust = document.createElement("div");
 
-    dust.className="dust";
+    dust.className = "dust";
 
-    dust.style.left=x+"px";
-    dust.style.top=y+"px";
+    dust.style.left = x + "px";
+    dust.style.top = y + "px";
 
     game.appendChild(dust);
 
-    setTimeout(
-        ()=>dust.remove(),
-        500
-    );
+    setTimeout(()=>{
+        dust.remove();
+    },500);
 }
 
 function spawnObstacle(){
 
     if(gameOver) return;
 
-    const obstacle =
-    document.createElement("div");
+    const obstacle = document.createElement("div");
 
-    obstacle.className="obstacle";
+    obstacle.className = "obstacle";
 
-    const h =
-    40 + Math.random()*50;
+    const height = 40 + Math.random()*50;
 
-    obstacle.style.height=
-    h+"px";
+    obstacle.style.height = height + "px";
 
-    obstacle.style.left=
-    "900px";
+    obstacle.style.left = game.offsetWidth + "px";
 
     game.appendChild(obstacle);
 
     obstacles.push({
         el:obstacle,
-        x:900
+        x:game.offsetWidth
     });
 
     setTimeout(
@@ -140,30 +137,23 @@ function spawnCoin(){
 
     if(gameOver) return;
 
-    const coin =
-    document.createElement("div");
+    const coin = document.createElement("div");
 
-    coin.className="coin";
+    coin.className = "coin";
 
-    coin.style.left="900px";
+    coin.style.left = game.offsetWidth + "px";
 
-    const y =
-    120 + Math.random()*80;
-
-    coin.style.bottom=
-    y+"px";
+    coin.style.bottom =
+    (120 + Math.random()*80) + "px";
 
     game.appendChild(coin);
 
     coins.push({
         el:coin,
-        x:900
+        x:game.offsetWidth
     });
 
-    setTimeout(
-        spawnCoin,
-        2500
-    );
+    setTimeout(spawnCoin,2500);
 }
 
 function update(){
@@ -188,23 +178,23 @@ function update(){
     }
 
     player.style.bottom =
-    playerY+"px";
+    playerY + "px";
 
-    cloudX -= speed*0.1;
-    mountainX -= speed*0.3;
+    cloudX -= speed * 0.1;
+    mountainX -= speed * 0.3;
 
     clouds.style.backgroundPositionX =
-    cloudX+"px";
+    cloudX + "px";
 
     mountains.style.backgroundPositionX =
-    mountainX+"px";
+    mountainX + "px";
 
     obstacles.forEach((obs,index)=>{
 
         obs.x -= speed;
 
         obs.el.style.left =
-        obs.x+"px";
+        obs.x + "px";
 
         const p =
         player.getBoundingClientRect();
@@ -221,14 +211,11 @@ function update(){
             endGame();
         }
 
-        if(obs.x<-50){
+        if(obs.x < -50){
 
             obs.el.remove();
 
-            obstacles.splice(
-                index,
-                1
-            );
+            obstacles.splice(index,1);
         }
     });
 
@@ -237,7 +224,7 @@ function update(){
         coin.x -= speed;
 
         coin.el.style.left =
-        coin.x+"px";
+        coin.x + "px";
 
         const p =
         player.getBoundingClientRect();
@@ -256,22 +243,15 @@ function update(){
 
             coin.el.remove();
 
-            coins.splice(
-                index,
-                1
-            );
+            coins.splice(index,1);
         }
 
-        if(coin.x<-30){
+        if(coin.x < -30){
 
             coin.el.remove();
 
-            coins.splice(
-                index,
-                1
-            );
+            coins.splice(index,1);
         }
-
     });
 
     requestAnimationFrame(update);
@@ -279,7 +259,7 @@ function update(){
 
 function endGame(){
 
-    gameOver=true;
+    gameOver = true;
 
     game.classList.add("shake");
 
