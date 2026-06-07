@@ -60,20 +60,17 @@ body{
 }
 
 #player{
-    width:80px;
-    height:80px;
+    width:94px;
+    height:94px;
+
     position:absolute;
     left:80px;
     bottom:60px;
 
-    border-radius:10px;
-
-    background:
-    linear-gradient(
-        45deg,
-        #3498db,
-        #1abc9c
-    );
+    background-image:url("assets/runner.png");
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+    background-position:center;
 }
 
 .obstacle{
