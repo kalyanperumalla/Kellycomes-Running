@@ -274,6 +274,9 @@ function endGame(){
             Math.floor(score)
         );
     }
+    if(gameOver && e.key.toLowerCase()==="r"){
+    location.reload();
+}
 
     setTimeout(()=>{
 
