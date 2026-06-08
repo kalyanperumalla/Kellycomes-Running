@@ -10,7 +10,7 @@ const gameOverScreen = document.getElementById("gameOver");
 const clouds = document.getElementById("clouds");
 const mountains = document.getElementById("mountains");
 
-const jumpSound = new Audio("sounds/jump.mp3");
+
 const coinSound = new Audio("sounds/coin.mp3");
 const gameOverSound = new Audio("sounds/gameover.mp3");
 
@@ -91,11 +91,7 @@ function startGame(){
 function jump() {
 
     if (playerY <= 60.5) {
-
         velocity = jumpPower;
-
-        jumpSound.currentTime = 0;
-        jumpSound.play();
     }
 }
 
