@@ -10,6 +10,10 @@ const gameOverScreen = document.getElementById("gameOver");
 const clouds = document.getElementById("clouds");
 const mountains = document.getElementById("mountains");
 
+const jumpSound = new Audio("sounds/jump.mp3");
+const coinSound = new Audio("sounds/coin.mp3");
+const gameOverSound = new Audio("sounds/gameover.mp3");
+
 let started = false;
 let gameOver = false;
 
@@ -84,13 +88,14 @@ function startGame(){
     requestAnimationFrame(update);
 }
 
-function jump(){
+function jump() {
 
-    if(playerY <= 60.5){
+    if (playerY <= 60.5) {
 
         velocity = jumpPower;
 
-        createDust(100,270);
+        jumpSound.currentTime = 0;
+        jumpSound.play();
     }
 }
 
@@ -165,6 +170,8 @@ function update(){
     if(gameOver) return;
 
     score += 0.1;
+    coinSound.currentTime = 0;
+coinSound.play();
 
     scoreEl.textContent =
     Math.floor(score);
@@ -262,7 +269,7 @@ function update(){
 }
 
 function endGame(){
-
+gameOverSound.play();
     gameOver = true;
 
     game.classList.add("shake");
