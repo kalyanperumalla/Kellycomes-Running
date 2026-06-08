@@ -6,6 +6,7 @@ const highScoreEl = document.getElementById("highScore");
 
 const startScreen = document.getElementById("startScreen");
 const gameOverScreen = document.getElementById("gameOver");
+const restartBtn = document.getElementById("restartBtn");
 
 const clouds = document.getElementById("clouds");
 const mountains = document.getElementById("mountains");
@@ -166,10 +167,7 @@ function update(){
     if(gameOver) return;
 
     score += 0.1;
-    coinSound.currentTime = 0;
-coinSound.play();
-
-    scoreEl.textContent =
+      scoreEl.textContent =
     Math.floor(score);
 
     speed =
@@ -239,19 +237,22 @@ coinSound.play();
         const c =
         coin.el.getBoundingClientRect();
 
-        if(
-            p.left < c.right &&
-            p.right > c.left &&
-            p.top < c.bottom &&
-            p.bottom > c.top
-        ){
+       if(
+    p.left < c.right &&
+    p.right > c.left &&
+    p.top < c.bottom &&
+    p.bottom > c.top
+){
 
-            score += 10;
+    score += 10;
 
-            coin.el.remove();
+    coinSound.currentTime = 0;
+    coinSound.play();
 
-            coins.splice(index,1);
-        }
+    coin.el.remove();
+
+    coins.splice(index,1);
+}
 
         if(coin.x < -30){
 
